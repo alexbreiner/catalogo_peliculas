@@ -1,15 +1,20 @@
 package com.catalogo.peliculas.domain.model;
 
-import lombok.AllArgsConstructor;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
-import lombok.Setter;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Validate;
 
-@Setter
 @Getter
-@AllArgsConstructor
 public class PeliculaDuracion {
+    private final Integer value;
 
-
-    private final String id;
-    private final CategoriaNombre nombre;
+    @JsonCreator
+    public PeliculaDuracion(@JsonProperty("value") Integer value) {
+        Validate.notNull(value,"la duración no puede estar nulo");
+        Validate.isTrue(StringUtils.isNoneBlank(value.toString()), "La duración no puede estar en blanco");
+        this.value = value;
+    }
 }
